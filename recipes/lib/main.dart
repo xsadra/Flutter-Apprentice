@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'recipe.dart';
+
 void main() {
   runApp(const RecipeApp());
 }
@@ -15,6 +17,7 @@ class RecipeApp extends StatelessWidget {
     // 3
     return MaterialApp(
       // 4
+      debugShowCheckedModeBanner: false,
       title: 'Recipe Calculator',
       // 5
       theme: theme.copyWith(
@@ -48,12 +51,49 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       // 3
       body: SafeArea(
-        // TODO: Replace child: Container()
-        // 4
-        child: Container(),
+// 4
+        child: ListView.builder(
+          // 5
+          itemCount: Recipe.samples.length,
+          // 6
+          itemBuilder: (BuildContext context, int index) {
+            // TODO: Add GestureDetector
+            return buildRecipeCard(Recipe.samples[index]);
+          },
+        ),
       ),
     );
   }
 
-// TODO: Add buildRecipeCard() here
+  Widget buildRecipeCard(Recipe recipe) {
+    return Card(
+      // 1
+      elevation: 2.0,
+      // 2
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+      // 3
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        // 4
+        child: Column(
+          children: <Widget>[
+            Image(image: AssetImage(recipe.imageUrl)),
+            // 5
+            const SizedBox(
+              height: 14.0,
+            ),
+            // 6
+            Text(
+              recipe.label,
+              style: const TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.w700,
+                fontFamily: 'Palatino',
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
 }
