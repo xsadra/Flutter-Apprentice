@@ -16,6 +16,7 @@ class _HomeState extends State<Home> {
   static List<Widget> pages = <Widget>[
     ExploreScreen(),
     RecipesScreen(),
+    // TODO 1: Replace with grocery screen
     Container(color: Colors.blue),
   ];
 
@@ -27,6 +28,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    // TODO 9: Wrap inside a Consumer Widget
     return Scaffold(
       appBar: AppBar(
         title: Text(
