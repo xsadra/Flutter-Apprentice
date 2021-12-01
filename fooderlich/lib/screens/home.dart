@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 
+import '../models/models.dart';
 import 'explore_screen.dart';
 import 'grocery_screen.dart';
 import 'recipes_screen.dart';
 
 class Home extends StatefulWidget {
-  // TODO: Home MaterialPage Helper
+  static MaterialPage page(int currentTab) {
+    return MaterialPage(
+      name: FooderlichPages.home,
+      key: ValueKey(FooderlichPages.home),
+      child: Home(
+        currentTab: currentTab,
+      ),
+    );
+  }
 
   const Home({
     Key? key,
@@ -71,7 +80,7 @@ class _HomeState extends State<Home> {
         child: const CircleAvatar(
           backgroundColor: Colors.transparent,
           backgroundImage: AssetImage(
-            'assets/profile_pics/person_stef.jpeg',
+            'assets/profile_pics/person_sadra.jpg',
           ),
         ),
         onTap: () {
