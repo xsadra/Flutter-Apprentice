@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fooderlich/screens/screens.dart';
 
 import '../models/models.dart';
 
@@ -37,7 +38,8 @@ class AppRouter extends RouterDelegate
       key: navigatorKey,
       onPopPage: _handlePopPage,
       pages: [
-        // TODO: Add SplashScreen
+        if (!appStateManager.isInitialized) SplashScreen.page(),
+
         // TODO: Add LoginScreen
         // TODO: Add OnboardingScreen
         // TODO: Add Home
