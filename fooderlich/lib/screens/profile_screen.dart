@@ -14,6 +14,7 @@ class ProfileScreen extends StatefulWidget {
   }
 
   final User user;
+
   const ProfileScreen({
     Key? key,
     required this.user,
@@ -58,7 +59,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ListTile(
           title: const Text('View sadra.at'),
           onTap: () {
-            // TODO: Open raywenderlich.com webview
+            Provider.of<ProfileManager>(context, listen: false)
+                .tapOnRaywenderlich(true);
           },
         ),
         ListTile(

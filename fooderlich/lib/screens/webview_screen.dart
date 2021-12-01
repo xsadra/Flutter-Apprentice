@@ -3,8 +3,16 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../models/models.dart';
+
 class WebViewScreen extends StatefulWidget {
-  // TODO: WebViewScreen MaterialPage Helper
+  static MaterialPage page() {
+    return MaterialPage(
+      name: FooderlichPages.raywenderlich,
+      key: ValueKey(FooderlichPages.raywenderlich),
+      child: const WebViewScreen(),
+    );
+  }
 
   const WebViewScreen({Key? key}) : super(key: key);
 
@@ -24,10 +32,10 @@ class WebViewScreenState extends State<WebViewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('raywenderlich.com'),
+        title: const Text('sadra.at'),
       ),
       body: const WebView(
-        initialUrl: 'https://www.raywenderlich.com/',
+        initialUrl: 'https://www.sadra.at/',
       ),
     );
   }
