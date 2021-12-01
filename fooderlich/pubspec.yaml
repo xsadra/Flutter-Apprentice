@@ -1,6 +1,7 @@
 name: fooderlich
-description: A new Flutter project.
-publish_to: 'none'
+description: a social recipe app to keep track of new dishes, and share with friends.
+
+publish_to: "none"
 version: 1.0.0+1
 
 environment:
@@ -14,12 +15,12 @@ dependencies:
   flutter_colorpicker: ^1.0.2
   intl: ^0.17.0
   uuid: ^3.0.5
-
+  smooth_page_indicator: ^1.0.0+2
+  webview_flutter: ^2.3.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^1.0.4
 
 flutter:
   uses-material-design: true
@@ -30,32 +31,3 @@ flutter:
     - assets/sample_data/
     - assets/profile_pics/
     - assets/fooderlich_assets/
-  
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
