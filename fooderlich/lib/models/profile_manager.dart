@@ -7,7 +7,7 @@ class ProfileManager extends ChangeNotifier {
         firstName: 'Sadra',
         lastName: 'Babai',
         role: 'Flutterista',
-        profileImageUrl: 'assets/profile_pics/person_sadra.jpeg',
+        profileImageUrl: 'assets/profile_pics/person_sadra.jpg',
         points: 100,
         darkMode: _darkMode,
       );
