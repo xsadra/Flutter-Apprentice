@@ -49,7 +49,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       children: [
         buildDarkModeRow(),
         ListTile(
-          title: const Text('View raywenderlich.com'),
+          title: const Text('View sadra.at'),
           onTap: () {
             // TODO: Open raywenderlich.com webview
           },
