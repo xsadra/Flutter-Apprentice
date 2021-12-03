@@ -4,10 +4,10 @@ import 'models.dart';
 
 class ProfileManager extends ChangeNotifier {
   User get getUser => User(
-        firstName: 'Sadra',
-        lastName: 'Babai',
+        firstName: 'Stef',
+        lastName: 'Patt',
         role: 'Flutterista',
-        profileImageUrl: 'assets/profile_pics/person_sadra.jpg',
+        profileImageUrl: 'assets/profile_pics/person_stef.jpeg',
         points: 100,
         darkMode: _darkMode,
       );
