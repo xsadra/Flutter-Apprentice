@@ -23,12 +23,12 @@ class _FooderlichState extends State<Fooderlich> {
   final _groceryManager = GroceryManager();
   final _profileManager = ProfileManager();
   final _appStateManager = AppStateManager();
-  late AppRouter appRouter;
+  late AppRouter _appRouter;
   final routeParser = AppRouteParser();
 
   @override
   void initState() {
-    appRouter = AppRouter(
+    _appRouter = AppRouter(
       appStateManager: _appStateManager,
       groceryManager: _groceryManager,
       profileManager: _profileManager,
@@ -63,7 +63,7 @@ class _FooderlichState extends State<Fooderlich> {
             // 1
             routeInformationParser: routeParser,
             // 2
-            routerDelegate: appRouter,
+            routerDelegate: _appRouter,
           );
         },
       ),
