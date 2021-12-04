@@ -1,10 +1,15 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../network/recipe_model.dart';
 import '../colors.dart';
+import '../recipe_card.dart';
 import '../widgets/custom_dropdown.dart';
+import 'recipe_details.dart';
 
 class RecipeList extends StatefulWidget {
   const RecipeList({Key? key}) : super(key: key);
@@ -15,6 +20,7 @@ class RecipeList extends StatefulWidget {
 
 class _RecipeListState extends State<RecipeList> {
   static const String prefSearchKey = 'previousSearches';
+
   late TextEditingController searchTextController;
   final ScrollController _scrollController = ScrollController();
   List currentSearchList = [];
@@ -26,10 +32,12 @@ class _RecipeListState extends State<RecipeList> {
   bool loading = false;
   bool inErrorState = false;
   List<String> previousSearches = <String>[];
+  APIRecipeQuery? _currentRecipes1 = null;
 
   @override
   void initState() {
     super.initState();
+    loadRecipes();
     getPreviousSearches();
     searchTextController = TextEditingController(text: '');
     _scrollController
@@ -53,6 +61,13 @@ class _RecipeListState extends State<RecipeList> {
       });
   }
 
+  Future loadRecipes() async {
+    final jsonString = await rootBundle.loadString('assets/recipes1.json');
+    setState(() {
+      _currentRecipes1 = APIRecipeQuery.fromJson(jsonDecode(jsonString));
+    });
+  }
+
   @override
   void dispose() {
     searchTextController.dispose();
@@ -61,7 +76,6 @@ class _RecipeListState extends State<RecipeList> {
 
   void savePreviousSearches() async {
     final prefs = await SharedPreferences.getInstance();
-
     prefs.setStringList(prefSearchKey, previousSearches);
   }
 
@@ -69,7 +83,6 @@ class _RecipeListState extends State<RecipeList> {
     final prefs = await SharedPreferences.getInstance();
     if (prefs.containsKey(prefSearchKey)) {
       final searches = prefs.getStringList(prefSearchKey);
-
       if (searches != null) {
         previousSearches = searches;
       } else {
@@ -103,23 +116,19 @@ class _RecipeListState extends State<RecipeList> {
         padding: const EdgeInsets.all(4.0),
         child: Row(
           children: [
-            // Replace
             IconButton(
               icon: const Icon(Icons.search),
               onPressed: () {
                 startSearch(searchTextController.text);
-
                 final currentFocus = FocusScope.of(context);
                 if (!currentFocus.hasPrimaryFocus) {
                   currentFocus.unfocus();
                 }
               },
             ),
-
             const SizedBox(
               width: 6.0,
             ),
-
             Expanded(
               child: Row(
                 children: <Widget>[
@@ -179,22 +188,35 @@ class _RecipeListState extends State<RecipeList> {
       currentStartPosition = 0;
       hasMore = true;
       value = value.trim();
-
       if (!previousSearches.contains(value)) {
         previousSearches.add(value);
-
         savePreviousSearches();
       }
     });
   }
 
   Widget _buildRecipeLoader(BuildContext context) {
-    if (searchTextController.text.length < 3) {
+    if (_currentRecipes1 == null || _currentRecipes1?.hits == null) {
       return Container();
     }
-    // Show a loading indicator while waiting for the movies
-    return const Center(
-      child: CircularProgressIndicator(),
+    // Show a loading indicator while waiting for the recipes
+    return Center(
+      child: _buildRecipeCard(context, _currentRecipes1!.hits, 0),
+    );
+  }
+
+  Widget _buildRecipeCard(
+      BuildContext topLevelContext, List<APIHits> hits, int index) {
+    final recipe = hits[index].recipe;
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(topLevelContext, MaterialPageRoute(
+          builder: (context) {
+            return const RecipeDetails();
+          },
+        ));
+      },
+      child: recipeStringCard(recipe.image, recipe.label),
     );
   }
 }
