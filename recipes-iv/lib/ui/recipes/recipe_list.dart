@@ -197,6 +197,8 @@ class _RecipeListState extends State<RecipeList> {
     }
 
     return FutureBuilder<Response<Result<APIRecipeQuery>>>(
+      // Use This code to use Mocked Data
+      // * future: Provider.of<MockService>(context).queryRecipes(
       future: RecipeService.create().queryRecipes(
           searchTextController.text.trim(),
           currentStartPosition,

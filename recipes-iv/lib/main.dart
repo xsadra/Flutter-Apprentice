@@ -4,6 +4,7 @@ import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 
 import 'data/memory_repository.dart';
+import 'mock_service/mock_service.dart';
 import 'ui/main_screen.dart';
 
 Future<void> main() async {
@@ -24,9 +25,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<MemoryRepository>(
-      lazy: false,
-      create: (_) => MemoryRepository(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<MemoryRepository>(
+          lazy: false,
+          create: (_) => MemoryRepository(),
+        ),
+        Provider(
+          create: (_) => MockService()..create(),
+          lazy: false,
+        ),
+      ],
+      // 5
       child: MaterialApp(
         title: 'Recipes',
         debugShowCheckedModeBanner: false,
