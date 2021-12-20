@@ -4,6 +4,8 @@ import 'model_converter.dart';
 import 'model_response.dart';
 import 'recipe_model.dart';
 
+part 'recipe_service.chopper.dart';
+
 const String apiKey = '702e600cf76b1adf023cf5c6bb042d3f';
 const String apiId = '8170816e';
 const String apiUrl = 'https://api.edamam.com';
