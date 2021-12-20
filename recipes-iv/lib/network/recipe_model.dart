@@ -8,7 +8,6 @@ class APIRecipeQuery {
       _$APIRecipeQueryFromJson(json);
 
   Map<String, dynamic> toJson() => _$APIRecipeQueryToJson(this);
-
   @JsonKey(name: 'q')
   String query;
   int from;
@@ -46,7 +45,6 @@ class APIRecipe {
   String label;
   String image;
   String url;
-
   List<APIIngredients> ingredients;
   double calories;
   double totalWeight;
