@@ -1,16 +1,41 @@
-import 'package:flutter/foundation.dart';
+import 'dart:async';
 
 import 'models/models.dart';
 import 'repository.dart';
 
-class MemoryRepository extends Repository with ChangeNotifier {
+class MemoryRepository extends Repository {
   final List<Recipe> _currentRecipes = <Recipe>[];
 
   final List<Ingredient> _currentIngredients = <Ingredient>[];
 
+  Stream<List<Recipe>>? _recipeStream;
+  Stream<List<Ingredient>>? _ingredientStream;
+
+  final StreamController _recipeStreamController =
+      StreamController<List<Recipe>>();
+  final StreamController _ingredientStreamController =
+      StreamController<List<Ingredient>>();
+
   @override
-  List<Recipe> findAllRecipes() {
-    return _currentRecipes;
+  Stream<List<Recipe>> watchAllRecipes() {
+    if (_recipeStream == null) {
+      _recipeStream = _recipeStreamController.stream as Stream<List<Recipe>>;
+    }
+    return _recipeStream!;
+  }
+
+  @override
+  Stream<List<Ingredient>> watchAllIngredients() {
+    if (_ingredientStream == null) {
+      _ingredientStream =
+          _ingredientStreamController.stream as Stream<List<Ingredient>>;
+    }
+    return _ingredientStream!;
+  }
+
+  @override
+  Future<List<Recipe>> findAllRecipes() {
+    return Future.value(_currentRecipes);
   }
 
   @override
@@ -82,9 +107,12 @@ class MemoryRepository extends Repository with ChangeNotifier {
 
   @override
   Future init() {
-    return Future.value(null);
+    return Future.value();
   }
 
   @override
-  void close() {}
+  void close() {
+    _recipeStreamController.close();
+    _ingredientStreamController.close();
+  }
 }
