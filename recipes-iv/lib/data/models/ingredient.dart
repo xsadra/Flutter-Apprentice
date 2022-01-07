@@ -10,4 +10,18 @@ class Ingredient extends Equatable {
 
   @override
   List<Object?> get props => [recipeId, name, weight];
+
+  factory Ingredient.fromJson(Map<String, dynamic> map) => Ingredient(
+        id: map['id'] as int,
+        recipeId: map['recipeId'] as int,
+        name: map['name'] as String,
+        weight: map['weight'] as double,
+      );
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'recipeId': recipeId,
+        'name': name,
+        'weight': weight,
+      };
 }
