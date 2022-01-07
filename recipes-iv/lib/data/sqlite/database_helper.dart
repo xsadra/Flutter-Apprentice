@@ -27,9 +27,7 @@ class DatabaseHelper {
   static Database? _database;
 
 // SQL code to create the database table
-// 1
   Future _onCreate(Database db, int version) async {
-    // 2
     await db.execute('''
         CREATE TABLE $recipeTable (
           $recipeId INTEGER PRIMARY KEY,
@@ -41,7 +39,7 @@ class DatabaseHelper {
           totalTime REAL
         )
         ''');
-    // 3
+
     await db.execute('''
         CREATE TABLE $ingredientTable (
           $ingredientId INTEGER PRIMARY KEY,
