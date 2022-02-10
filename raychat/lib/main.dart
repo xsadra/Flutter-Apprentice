@@ -28,11 +28,8 @@ class App extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'RayChat',
         theme: ThemeData(primaryColor: const Color(0xFF3D814A)),
-// 1
         home: Consumer<UserDao>(
-          // 2
           builder: (context, userDao, child) {
-            // 3
             if (userDao.isLoggedIn()) {
               return const MessageList();
             } else {
